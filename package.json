@@ -1,0 +1,24 @@
+{
+  "name": "react-redux-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s-tyd/React-redux-tutorial.git"
+  },
+  "author": "s-tyd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/s-tyd/React-redux-tutorial/issues"
+  },
+  "homepage": "https://github.com/s-tyd/React-redux-tutorial#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.5",
+    "gulp": "^3.9.1",
+    "gulp-watch": "^5.0.1"
+  }
+}
