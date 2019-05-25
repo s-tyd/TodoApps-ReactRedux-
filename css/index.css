@@ -50,6 +50,32 @@ body {
     list-style: none;
 }
 
+.main-area .list-area .todo-input-area {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.main-area .list-area .todo-input-area .todo-input {
+    border: 1px solid #666666;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 18px;
+    float: left;
+    width: calc(100% - 120px);
+
+}
+
+.main-area .list-area .todo-input-area .add-button {
+    border: none;
+    border-radius: 5px;
+    background: #3366FF;
+    color: #FFFFFF;
+    width: 60px;
+    height: 43px;
+    font-size: 18px;
+    float: right;
+}
+
 .header {
     box-sizing: border-box;
     width: 100%;
