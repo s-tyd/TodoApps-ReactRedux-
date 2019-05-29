@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './header.js';
-import Footer from './footer.js';
-import { log } from 'util';
+import Header from './header';
+import Footer from './footer';
+import ListItem from './listItem';
 
 
 export default class MainArea extends React.Component {
@@ -10,10 +10,16 @@ export default class MainArea extends React.Component {
 
         this.state = {
             todos: [
-                { label: 'todo1' },
-                { label: 'todo2' },
-                { label: 'todo3' },
-                { label: 'todo4' }
+                {
+                    id: 'item1',
+                    label: 'todo1',
+                    completed: false
+                },
+                {
+                    id: 'item2',
+                    label: 'todo2',
+                    completed: false
+                }
             ],
             todoInputValue: ''
         }
@@ -36,12 +42,43 @@ export default class MainArea extends React.Component {
         });
     }
 
+    onCompleteTodo(id) {
+        console.log('onCompleteTodo', id);
+        let _state = Object.assign({}, this.state);
+        for (let i = 0; i < _state.todos.length; i++) {
+            if (_state.todos[i].id == id) {
+                _state.todos[i].completed = true;
+            }
+            break;
+        }
+        this.setState(_state);
+    }
+
+    onDeleteTodo(id) {
+        let _state = Object.assign({}, this.state);
+        for (let i = 0; i < _state.todos.length; i++) {
+            if (_state.todos[i].id == id) {
+                _state.todos[i].completed = true;
+            }
+            _state.todos.splice(i,1);
+            break;
+        }
+        this.setState(_state);
+    }
+
     renderTodoItems() {
         let todoItemDom = [];
         for (let i = 0; i < this.state.todos.length; i++) {
-            let todoItem =
-                <li className='todo-list-item' key={'item-' + i}>{this.state.todos[i].label}</li>;
-            todoItemDom.push(todoItem);
+            if (!this.state.todos[i].completed) {
+                let todoItem =
+                    <ListItem
+                        key={'item-' + i}
+                        data={this.state.todos[i]}
+                        completeTodo={this.onCompleteTodo.bind(this)}
+                        deleteTodo={this.onDeleteTodo.bind(this)}
+                    />;
+                todoItemDom.push(todoItem);
+            }
         }
         return todoItemDom
     }
