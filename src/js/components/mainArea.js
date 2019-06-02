@@ -59,7 +59,6 @@ export default class MainArea extends React.Component {
                             className='todo-input'
                             placeholder='Todoを追加'
                             value={this.state.todoInputValue}
-                            // value={this.props.text}
                             onChange={this.onChangeTodoInput.bind(this)} />
                         <button className='add-button'
                             onClick={this.onClickAddButton.bind(this)}>登録</button>

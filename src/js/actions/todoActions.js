@@ -12,5 +12,21 @@ export const todoActions = {
                 data: data
             }
         }
+    },
+    completeTodo: (id) => {
+        return {
+            type: todoActionNames.COMPLETE_TODO,
+            payload: {
+                id: id
+            }
+        }
+    },
+    deleteTodo: (id) => {
+        return {
+            type: todoActionNames.DELETE_TODO,
+            payload: {
+                id: id
+            }
+        }
     }
 }
