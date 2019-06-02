@@ -10,7 +10,7 @@ export default class AddGroupDialog extends React.Component {
     }
     componentWillReceiveProps(nextProps) {
         let _state = Object.assign({}, this.state);
-        _state.groupName = nextProps.group.label;
+        _state.groupName = nextProps.group ? nextProps.group.label:''; 
         this.setState(_state);
     }
 
@@ -21,9 +21,8 @@ export default class AddGroupDialog extends React.Component {
         this.props.onSave(this.props.group.id, this.state.groupName);
     }
     onDelete(event) {
-        this.props.onDelete();
+        this.props.onDelete(this.props.group.id);
     }
-
     onChangeGroupName(event) {
         this.setState({ groupName: event.target.value })
     }

@@ -50,7 +50,9 @@ export default class MainArea extends React.Component {
     render() {
         return (
             <div className='main-area'>
-                <Header />
+                <Header
+                    groupName = {this.props.groupName}
+                    />
                 <main className='list-area'>
                     <div className='todo-input-area'>
                         <input type='text'
