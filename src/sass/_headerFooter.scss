@@ -1,0 +1,18 @@
+.header {
+    box-sizing: border-box;
+    width: 100%;
+    height: $headerHeight;
+    padding: 20px;
+    background: #cccccc
+}
+
+.footer {
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: $footerHeight;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    background: #cccccc
+}

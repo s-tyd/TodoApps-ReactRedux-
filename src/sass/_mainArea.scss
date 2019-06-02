@@ -1,0 +1,62 @@
+.main-area {
+    width: calc(100% - #{$sideAreaWidth});
+    height: 100%;
+    position: relative;
+
+    .list-area {
+        box-sizing: border-box;
+        width: 100%;
+        height: calc(100% - #{$headerHeight} - #{$footerHeight});
+        padding: 20px;
+
+        .todo-list {
+            margin: 0;
+            padding: 0;
+
+            .todo-list-item {
+                padding: 10px 20px;
+                border: 1px solid #cccccc;
+                border-radius: 5px;
+                margin-bottom: 5px;
+                list-style: none;
+
+                input[type='checkbox'] {
+                    margin-right: 10px;
+                }
+
+                .delete-button {
+                    border: none;
+                    font-size: 1.2rem;
+                    float: right;
+                    cursor: pointer;
+                    outline: none;
+                }
+            }
+        }
+
+        .todo-input-area {
+            margin-bottom: 20px;
+            overflow: hidden;
+
+            .todo-input {
+                border: 1px solid #666666;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 18px;
+                float: left;
+                width: calc(100% - 120px);
+            }
+
+            .add-button {
+                border: none;
+                border-radius: 5px;
+                background: #3366FF;
+                color: #FFFFFF;
+                width: 60px;
+                height: 43px;
+                font-size: 18px;
+                float: right;
+            }
+        }
+    }
+}
