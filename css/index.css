@@ -1,13 +1,19 @@
+* {
+  padding: 0;
+  margin: 0;
+  outline: none; }
+
 html,
 body {
   width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0; }
+  height: 100%; }
 
 #root {
   width: 100%;
   height: 100%; }
+
+li {
+  list-style: none; }
 
 .wrap {
   width: 100%;
@@ -18,6 +24,10 @@ body {
   width: 300px;
   height: 100%;
   background: #e2e2e2; }
+  .side-area .group-list li {
+    padding: 10px 20px;
+    border-bottom: 1px solid #cccccc;
+    cursor: pointer; }
 
 .main-area {
   width: calc(100% - 300px);
@@ -81,3 +91,56 @@ body {
   bottom: 0;
   left: 0;
   background: #cccccc; }
+
+.modal-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 99; }
+  .modal-layer .dialog {
+    background: #ffffff;
+    border-radius: 5px;
+    position: absolute;
+    top: 200px;
+    left: calc(50% - 200px);
+    width: 400px; }
+    .modal-layer .dialog .dialog-header {
+      background: #ededed;
+      padding: 10px 20px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 5px 5px 0 0; }
+    .modal-layer .dialog .dialog-content {
+      padding: 20px; }
+      .modal-layer .dialog .dialog-content .group-text-input {
+        padding: 5px;
+        width: 240px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-size: 1rem; }
+    .modal-layer .dialog .dialog-footer {
+      border-top: 1px solid #cccccc;
+      padding: 10px 20px;
+      overflow: hidden; }
+      .modal-layer .dialog .dialog-footer .cancel-button {
+        float: left;
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        border: 0;
+        background: #eeeeee;
+        cursor: pointer;
+        font-size: 0.8rem; }
+      .modal-layer .dialog .dialog-footer .save-button {
+        float: right;
+        width: 80px;
+        height: 30px;
+        border-radius: 5px;
+        border: 0;
+        background: #4466FF;
+        cursor: pointer;
+        font-size: 0.8rem;
+        color: #ffffff; }

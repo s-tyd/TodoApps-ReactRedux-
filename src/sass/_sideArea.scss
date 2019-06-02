@@ -1,5 +1,13 @@
 .side-area {
     width: $sideAreaWidth;
     height: 100%;
-    background: #e2e2e2
+    background: #e2e2e2;
+
+    .group-list {
+        li {
+            padding: 10px 20px;
+            border-bottom: 1px solid #cccccc;
+            cursor: pointer;
+        }
+    }
 }

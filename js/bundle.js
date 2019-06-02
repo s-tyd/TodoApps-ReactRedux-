@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,9 +71,9 @@
 /* WEBPACK VAR INJECTION */(function(process) {
 
 if (process.env.NODE_ENV === 'production') {
-  module.exports = __webpack_require__(14);
-} else {
   module.exports = __webpack_require__(15);
+} else {
+  module.exports = __webpack_require__(16);
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
@@ -577,7 +577,7 @@ module.exports = warning;
 var printWarning = function() {};
 
 if (process.env.NODE_ENV !== 'production') {
-  var ReactPropTypesSecret = __webpack_require__(16);
+  var ReactPropTypesSecret = __webpack_require__(17);
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -675,6 +675,52 @@ module.exports = checkPropTypes;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+function checkDCE() {
+  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
+  if (
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
+    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
+  ) {
+    return;
+  }
+  if (process.env.NODE_ENV !== 'production') {
+    // This branch is unreachable because this function is only called
+    // in production, but the condition is true only in development.
+    // Therefore if the branch is still here, dead code elimination wasn't
+    // properly applied.
+    // Don't change the message. React DevTools relies on it. Also make sure
+    // this message doesn't occur elsewhere in this function, or it will cause
+    // a false positive.
+    throw new Error('^_^');
+  }
+  try {
+    // Verify that the code above has been dead code eliminated (DCE'd).
+    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
+  } catch (err) {
+    // DevTools shouldn't crash React, no matter what.
+    // We should still report in case we break this code.
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  // DCE check should happen before ReactDOM bundle executes so that
+  // DevTools can report bad minification during injection.
+  checkDCE();
+  module.exports = __webpack_require__(18);
+} else {
+  module.exports = __webpack_require__(21);
+}
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
  *
@@ -710,7 +756,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -807,7 +853,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -849,7 +895,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -920,7 +966,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -963,7 +1009,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -973,7 +1019,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(17);
+var _reactDom = __webpack_require__(8);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -986,7 +1032,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('root'));
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1015,7 +1061,7 @@ assign:k}},Y={default:X},Z=Y&&X||Y;module.exports=Z.default?Z.default:Z;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2509,7 +2555,7 @@ module.exports = react;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2528,52 +2574,6 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 17 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-function checkDCE() {
-  /* global __REACT_DEVTOOLS_GLOBAL_HOOK__ */
-  if (
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ === 'undefined' ||
-    typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE !== 'function'
-  ) {
-    return;
-  }
-  if (process.env.NODE_ENV !== 'production') {
-    // This branch is unreachable because this function is only called
-    // in production, but the condition is true only in development.
-    // Therefore if the branch is still here, dead code elimination wasn't
-    // properly applied.
-    // Don't change the message. React DevTools relies on it. Also make sure
-    // this message doesn't occur elsewhere in this function, or it will cause
-    // a false positive.
-    throw new Error('^_^');
-  }
-  try {
-    // Verify that the code above has been dead code eliminated (DCE'd).
-    __REACT_DEVTOOLS_GLOBAL_HOOK__.checkDCE(checkDCE);
-  } catch (err) {
-    // DevTools shouldn't crash React, no matter what.
-    // We should still report in case we break this code.
-    console.error(err);
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  // DCE check should happen before ReactDOM bundle executes so that
-  // DevTools can report bad minification during injection.
-  checkDCE();
-  module.exports = __webpack_require__(18);
-} else {
-  module.exports = __webpack_require__(21);
-}
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
-
-/***/ }),
 /* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2590,7 +2590,7 @@ if (process.env.NODE_ENV === 'production') {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(3),ba=__webpack_require__(0),m=__webpack_require__(8),p=__webpack_require__(9),v=__webpack_require__(2),da=__webpack_require__(10),ea=__webpack_require__(11),fa=__webpack_require__(12),ha=__webpack_require__(4);
+var aa=__webpack_require__(3),ba=__webpack_require__(0),m=__webpack_require__(9),p=__webpack_require__(10),v=__webpack_require__(2),da=__webpack_require__(11),ea=__webpack_require__(12),fa=__webpack_require__(13),ha=__webpack_require__(4);
 function A(a){for(var b=arguments.length-1,c="https://reactjs.org/docs/error-decoder.html?invariant="+a,d=0;d<b;d++)c+="&args[]="+encodeURIComponent(arguments[d+1]);aa(!1,"Minified React error #"+a+"; visit %s for the full message or use the non-minified dev environment for full errors and additional helpful warnings. ",c)}ba?void 0:A("227");
 function ia(a,b,c,d,e,f,g,h,k){this._hasCaughtError=!1;this._caughtError=null;var n=Array.prototype.slice.call(arguments,3);try{b.apply(c,n)}catch(r){this._caughtError=r,this._hasCaughtError=!0}}
 var B={_caughtError:null,_hasCaughtError:!1,_rethrowError:null,_hasRethrowError:!1,invokeGuardedCallback:function(a,b,c,d,e,f,g,h,k){ia.apply(B,arguments)},invokeGuardedCallbackAndCatchFirstError:function(a,b,c,d,e,f,g,h,k){B.invokeGuardedCallback.apply(this,arguments);if(B.hasCaughtError()){var n=B.clearCaughtError();B._hasRethrowError||(B._hasRethrowError=!0,B._rethrowError=n)}},rethrowCaughtError:function(){return ka.apply(B,arguments)},hasCaughtError:function(){return B._hasCaughtError},clearCaughtError:function(){if(B._hasCaughtError){var a=
@@ -2901,13 +2901,13 @@ if (process.env.NODE_ENV !== "production") {
 var invariant = __webpack_require__(3);
 var React = __webpack_require__(0);
 var warning = __webpack_require__(6);
-var ExecutionEnvironment = __webpack_require__(8);
-var _assign = __webpack_require__(9);
+var ExecutionEnvironment = __webpack_require__(9);
+var _assign = __webpack_require__(10);
 var emptyFunction = __webpack_require__(2);
 var checkPropTypes = __webpack_require__(7);
-var getActiveElement = __webpack_require__(10);
-var shallowEqual = __webpack_require__(11);
-var containsNode = __webpack_require__(12);
+var getActiveElement = __webpack_require__(11);
+var shallowEqual = __webpack_require__(12);
+var containsNode = __webpack_require__(13);
 var emptyObject = __webpack_require__(4);
 var hyphenateStyleName = __webpack_require__(22);
 var camelizeStyleName = __webpack_require__(24);
@@ -20507,20 +20507,107 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var App = function (_React$Component) {
     _inherits(App, _React$Component);
 
-    function App() {
+    function App(props) {
         _classCallCheck(this, App);
 
-        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.state = {
+            groupList: [{
+                id: 'inbox',
+                label: '受信箱'
+            }, {
+                id: 'group-1',
+                label: 'グループ１'
+            }],
+            todoList: {
+                'inbox': [{
+                    id: 'item1',
+                    label: 'todo1',
+                    completed: false
+                }, {
+                    id: 'item2',
+                    label: 'todo2',
+                    completed: false
+                }],
+                'group-1': [{
+                    id: 'item3',
+                    label: 'todo3',
+                    completed: false
+                }, {
+                    id: 'item4',
+                    label: 'todo4',
+                    completed: false
+                }]
+            },
+            todoCount: 4,
+            selectedGroup: 'inbox'
+        };
+        return _this;
     }
 
     _createClass(App, [{
+        key: 'onAddTodo',
+        value: function onAddTodo(label) {
+            var _state = Object.assign({}, this.state);
+            _state.todoCount++;
+            var todoList = _state.todoList[_state.selectedGroup];
+            var todoItem = {
+                id: 'item-' + _state.todoCount,
+                label: label,
+                completed: false
+            };
+            todoList.push(todoItem);
+            this.setState(_state);
+        }
+    }, {
+        key: 'onCompleteTodo',
+        value: function onCompleteTodo(id) {
+            var _state = Object.assign({}, this.state);
+            var todoList = _state.todoList[_state.selectedGroup];
+            for (var i = 0; i < todoList.length; i++) {
+                if (todoList[i].id == id) {
+                    todoList[i].completed = true;
+                    break;
+                }
+            }
+            this.setState(_state);
+        }
+    }, {
+        key: 'onDeleteTodo',
+        value: function onDeleteTodo(id) {
+            var _state = Object.assign({}, this.state);
+            var todoList = _state.todoList[_state.selectedGroup];
+            for (var i = 0; i < todoList.length; i++) {
+                if (todoList[i].id == id) {
+                    todoList.splice(i, 1);
+                    break;
+                }
+            }
+            this.setState(_state);
+        }
+    }, {
+        key: 'onSelectGroup',
+        value: function onSelectGroup(id) {
+            console.log('onselectgroup', id);
+            this.setState({ selectedGroup: id });
+        }
+    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'div',
                 { className: 'wrap' },
-                _react2.default.createElement(_sideArea2.default, null),
-                _react2.default.createElement(_mainArea2.default, null)
+                _react2.default.createElement(_sideArea2.default, {
+                    groupList: this.state.groupList,
+                    onSelect: this.onSelectGroup.bind(this)
+                }),
+                _react2.default.createElement(_mainArea2.default, {
+                    todoList: this.state.todoList[this.state.selectedGroup],
+                    onAddTodo: this.onAddTodo.bind(this),
+                    onCompleteTodo: this.onCompleteTodo.bind(this),
+                    onDeleteTodo: this.onDeleteTodo.bind(this)
+                })
             );
         }
     }]);
@@ -20576,15 +20663,6 @@ var MainArea = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (MainArea.__proto__ || Object.getPrototypeOf(MainArea)).call(this, props));
 
         _this.state = {
-            todos: [{
-                id: 'item1',
-                label: 'todo1',
-                completed: false
-            }, {
-                id: 'item2',
-                label: 'todo2',
-                completed: false
-            }],
             todoInputValue: ''
         };
         return _this;
@@ -20593,57 +20671,33 @@ var MainArea = function (_React$Component) {
     _createClass(MainArea, [{
         key: 'onChangeTodoInput',
         value: function onChangeTodoInput(event) {
-            // console.log('kig',event.target.value);
             this.setState({ todoInputValue: event.target.value });
         }
     }, {
         key: 'onClickAddButton',
         value: function onClickAddButton(event) {
-            // console.log('kig');
-            var addItem = { label: this.state.todoInputValue };
-            var todos = this.state.todos.slice();
-            todos.push(addItem);
-
-            this.setState({
-                todos: todos,
-                todoInputValue: ""
-            });
+            this.setState({ todoInputValue: '' });
+            this.props.onAddTodo(this.state.todoInputValue);
         }
     }, {
         key: 'onCompleteTodo',
         value: function onCompleteTodo(id) {
-            console.log('onCompleteTodo', id);
-            var _state = Object.assign({}, this.state);
-            for (var i = 0; i < _state.todos.length; i++) {
-                if (_state.todos[i].id == id) {
-                    _state.todos[i].completed = true;
-                }
-                break;
-            }
-            this.setState(_state);
+            this.props.onCompleteTodo(id);
         }
     }, {
         key: 'onDeleteTodo',
         value: function onDeleteTodo(id) {
-            var _state = Object.assign({}, this.state);
-            for (var i = 0; i < _state.todos.length; i++) {
-                if (_state.todos[i].id == id) {
-                    _state.todos[i].completed = true;
-                }
-                _state.todos.splice(i, 1);
-                break;
-            }
-            this.setState(_state);
+            this.props.onDeleteTodo(id);
         }
     }, {
         key: 'renderTodoItems',
         value: function renderTodoItems() {
             var todoItemDom = [];
-            for (var i = 0; i < this.state.todos.length; i++) {
-                if (!this.state.todos[i].completed) {
+            for (var i = 0; i < this.props.todoList.length; i++) {
+                if (!this.props.todoList[i].completed) {
                     var todoItem = _react2.default.createElement(_listItem2.default, {
                         key: 'item-' + i,
-                        data: this.state.todos[i],
+                        data: this.props.todoList[i],
                         completeTodo: this.onCompleteTodo.bind(this),
                         deleteTodo: this.onDeleteTodo.bind(this)
                     });
@@ -20882,6 +20936,14 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactDom = __webpack_require__(8);
+
+var _reactDom2 = _interopRequireDefault(_reactDom);
+
+var _addGroupDialog = __webpack_require__(32);
+
+var _addGroupDialog2 = _interopRequireDefault(_addGroupDialog);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20893,16 +20955,83 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var SideArea = function (_React$Component) {
     _inherits(SideArea, _React$Component);
 
-    function SideArea() {
+    function SideArea(props) {
         _classCallCheck(this, SideArea);
 
-        return _possibleConstructorReturn(this, (SideArea.__proto__ || Object.getPrototypeOf(SideArea)).apply(this, arguments));
+        var _this = _possibleConstructorReturn(this, (SideArea.__proto__ || Object.getPrototypeOf(SideArea)).call(this, props));
+
+        _this.state = {
+            showAddGroupDialog: false
+        };
+        return _this;
     }
 
     _createClass(SideArea, [{
+        key: 'onClickGroup',
+        value: function onClickGroup(event) {
+            var listItem = _reactDom2.default.findDOMNode(event.target);
+            var id = listItem.dataset.id;
+            this.props.onSelect(id);
+        }
+    }, {
+        key: 'onClickAddGroup',
+        value: function onClickAddGroup(event) {
+            this.setState({ showAddGroupDialog: true });
+        }
+    }, {
+        key: 'onSaveAddGroupDialog',
+        value: function onSaveAddGroupDialog(event) {
+            this.setState({ showAddGroupDialog: false });
+        }
+    }, {
+        key: 'onCancelAddGroupDialog',
+        value: function onCancelAddGroupDialog(event) {
+            this.setState({ showAddGroupDialog: false });
+        }
+    }, {
+        key: 'renderGroup',
+        value: function renderGroup() {
+            var groupListDom = [];
+            for (var i = 0; i < this.props.groupList.length; i++) {
+                var group = this.props.groupList[i];
+                var groupItem = _react2.default.createElement(
+                    'li',
+                    {
+                        key: group.id,
+                        'data-id': group.id,
+                        onClick: this.onClickGroup.bind(this)
+                    },
+                    group.label
+                );
+                groupListDom.push(groupItem);
+            }
+            return groupListDom;
+        }
+    }, {
         key: 'render',
         value: function render() {
-            return _react2.default.createElement('div', { className: 'side-area' });
+            return _react2.default.createElement(
+                'div',
+                { className: 'side-area' },
+                _react2.default.createElement(
+                    'ul',
+                    { className: 'group-list' },
+                    this.renderGroup()
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { className: 'side-area-footer' },
+                    _react2.default.createElement(
+                        'button',
+                        { onClick: this.onClickAddGroup.bind(this) },
+                        '\u30B0\u30EB\u30FC\u30D7\u65B0\u898F\u4F5C\u6210'
+                    )
+                ),
+                _react2.default.createElement(_addGroupDialog2.default, {
+                    show: this.state.showAddGroupDialog,
+                    onSave: this.onSaveAddGroupDialog.bind(this),
+                    onCancel: this.onCancelAddGroupDialog.bind(this) })
+            );
         }
     }]);
 
@@ -20910,6 +21039,107 @@ var SideArea = function (_React$Component) {
 }(_react2.default.Component);
 
 exports.default = SideArea;
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AddGroupDialog = function (_React$Component) {
+    _inherits(AddGroupDialog, _React$Component);
+
+    function AddGroupDialog() {
+        _classCallCheck(this, AddGroupDialog);
+
+        return _possibleConstructorReturn(this, (AddGroupDialog.__proto__ || Object.getPrototypeOf(AddGroupDialog)).apply(this, arguments));
+    }
+
+    _createClass(AddGroupDialog, [{
+        key: 'onCancel',
+        value: function onCancel(event) {
+            this.props.onCancel();
+        }
+    }, {
+        key: 'onSave',
+        value: function onSave(event) {
+            this.props.onSave();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            if (this.props.show) {
+                return _react2.default.createElement(
+                    'div',
+                    { className: 'modal-layer' },
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'dialog' },
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'dialog-header' },
+                            '\u30B0\u30EB\u30FC\u30D7\u65B0\u898F\u4F5C\u6210'
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'dialog-content' },
+                            '\u30B0\u30EB\u30FC\u30D7\u540D\uFF1A',
+                            _react2.default.createElement('input', {
+                                type: 'text',
+                                name: 'groupName',
+                                className: 'group-text-input' })
+                        ),
+                        _react2.default.createElement(
+                            'div',
+                            { className: 'dialog-footer' },
+                            _react2.default.createElement(
+                                'button',
+                                {
+                                    className: 'cancel-button',
+                                    onClick: this.onCancel.bind(this)
+                                },
+                                '\u30AD\u30E3\u30F3\u30BB\u30EB'
+                            ),
+                            _react2.default.createElement(
+                                'button',
+                                {
+                                    className: 'save-button',
+                                    onClick: this.onSave.bind(this)
+                                },
+                                '\u4FDD\u5B58'
+                            )
+                        )
+                    )
+                );
+            } else {
+                return _react2.default.createElement('div', null);
+            }
+        }
+    }]);
+
+    return AddGroupDialog;
+}(_react2.default.Component);
+
+exports.default = AddGroupDialog;
 
 /***/ })
 /******/ ]);
