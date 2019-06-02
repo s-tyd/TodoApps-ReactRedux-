@@ -8,6 +8,9 @@ export default class AddGroupDialog extends React.Component {
         let groupNameInput = this.refs.groupName;
         this.props.onSave(groupNameInput.value);
     }
+    onDelete(event){
+        this.props.onDelete();
+    }
 
     render() {
         if (this.props.show) {
@@ -38,6 +41,12 @@ export default class AddGroupDialog extends React.Component {
                                 onClick={this.onSave.bind(this)}
                             >
                                 保存
+                            </button>
+                            <button
+                                className='delete-button'
+                                onClick={this.onDelete.bind(this)}
+                            >
+                                削除
                             </button>
                         </div>
                     </div>

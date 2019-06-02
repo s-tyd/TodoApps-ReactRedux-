@@ -2,11 +2,45 @@
     width: $sideAreaWidth;
     height: 100%;
     background: #e2e2e2;
+    position: relative;
 
     .group-list {
         li {
-            padding: 10px 20px;
-            border-bottom: 1px solid #cccccc;
+            border-bottom: 1px solid #CCCCCC;
+            cursor: pointer;
+            overflow: hidden;
+
+            .group-edit-button{
+                border: 1px solid #cccccc;
+                border-radius: 5px;
+                font-size: 0.9rem;
+                float: right;
+                height: 25px;
+                width: 40px;
+                margin: 10px 10px 0 0;
+            }
+
+            span{
+                display: block;
+                padding: 10px 20px;
+                width: 210px;
+                float: left;
+            }
+        }
+    }
+
+    .side-area-footer {
+        position: absolute;
+        bottom: 0;
+        padding: 20px;
+        width: 100%;
+
+        .add-group-button {
+            width: calc(100% - 40px);
+            height: 30px;
+            border: 1px solid #CCCCCC;
+            font-size: 0.9em;
+            border-radius: 5px;
             cursor: pointer;
         }
     }
