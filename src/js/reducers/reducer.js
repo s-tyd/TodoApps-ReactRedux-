@@ -1,3 +1,5 @@
+import { todoActionNames } from '../actions/todoActions';
+
 const initialState = {
     groupList: [
         {
@@ -19,6 +21,11 @@ const initialState = {
             {
                 id: 'item2',
                 label: 'todo2',
+                completed: false
+            },
+            {
+                id: 'item5',
+                label: 'todo5',
                 completed: false
             }
         ],
@@ -42,16 +49,23 @@ const initialState = {
 
 
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
+    switch (action.type) {
+        case todoActionNames.ADD_TODO:
+            let _state = Object.assign({}, state);
+            _state.todoCount++;
+            let todoList = _state.todoList[_state.selectedGroup];
+            let todoItem = {
+                id: 'item-' + _state.todoCount,
+                label: action.payload.data,
+                completed: false
+            }
+            todoList.push(todoItem);
+            return _state;
 
-    return state;
-    // switch (action.type) {
-    //     case 'CHANGE_TEXT':
-    //         return Object.assign({}, state, { text: action.text });
-    //     default:
-    //         return state;
-    // }
+        default:
+            return state;
+    }
+
 }
 export default reducer;
-
-// = { text: 'text' }
