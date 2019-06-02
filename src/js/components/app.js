@@ -90,13 +90,13 @@ export default class App extends React.Component {
     onAddGroup(groupName) {
         let _state = Object.assign({}, this.state);
         _state.groupCount++;
-        let groupId = 'group-' +_state.groupCount;
+        let groupId = 'group-' + _state.groupCount;
         let groupItem = {
             id: groupId,
             label: groupName
         }
         _state.groupList.push(groupItem);
-        _state.todoList[groupId]=[];
+        _state.todoList[groupId] = [];
         this.setState(_state);
     }
 
@@ -104,6 +104,17 @@ export default class App extends React.Component {
     onSelectGroup(id) {
         console.log('onselectgroup', id);
         this.setState({ selectedGroup: id })
+    }
+
+    onEditGroup(id, groupName) {
+        let _state = Object.assign({}, this.state);
+        for (let i = 0; i < this.state.groupList.length; i++) {
+            if (this.state.groupList[i].id == id) {
+                this.state.groupList[i].label = groupName;
+                break;
+            }
+        }
+        this.setState(_state);
     }
 
 
@@ -114,6 +125,7 @@ export default class App extends React.Component {
                     groupList={this.state.groupList}
                     onSelect={this.onSelectGroup.bind(this)}
                     onAddGroup={this.onAddGroup.bind(this)}
+                    onEditGroup={this.onEditGroup.bind(this)}
                 />
                 <MainArea
                     todoList={this.state.todoList[this.state.selectedGroup]}

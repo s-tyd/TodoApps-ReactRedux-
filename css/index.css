@@ -30,6 +30,7 @@ li {
     cursor: pointer;
     overflow: hidden; }
     .side-area .group-list li .group-edit-button {
+      background: #FFFFFF;
       border: 1px solid #cccccc;
       border-radius: 5px;
       font-size: 0.9rem;
@@ -48,6 +49,7 @@ li {
     padding: 20px;
     width: 100%; }
     .side-area .side-area-footer .add-group-button {
+      background: #FFFFFF;
       width: calc(100% - 40px);
       height: 30px;
       border: 1px solid #CCCCCC;
@@ -76,6 +78,7 @@ li {
         .main-area .list-area .todo-list .todo-list-item input[type='checkbox'] {
           margin-right: 10px; }
         .main-area .list-area .todo-list .todo-list-item .delete-button {
+          background: #FFFFFF;
           border: none;
           font-size: 1.2rem;
           float: right;
