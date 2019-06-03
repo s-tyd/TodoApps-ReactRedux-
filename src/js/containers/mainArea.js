@@ -16,20 +16,21 @@ function getGroupName(groupList, selectedGroup) {
 const mapStateToProps = (state) => {
     return {
         groupName: getGroupName(state.groupReducer.groupList, state.groupReducer.selectedGroup),
-        todoList: state.todoReducer.todoList[state.groupReducer.selectedGroup]
+        todoList: state.todoReducer.todoList[state.groupReducer.selectedGroup],
+        selectedGroup: state.groupReducer.selectedGroup
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAddTodo: (data) => {
-            dispatch(todoActions.addTodo(data));
+        onAddTodo: (label, selectedGroup) => {
+            dispatch(todoActions.addTodo(label, selectedGroup));
         },
-        onCompleteTodo: (id) => {
-            dispatch(todoActions.completeTodo(id));
+        onCompleteTodo: (id, selectedGroup) => {
+            dispatch(todoActions.completeTodo(id, selectedGroup));
         },
-        onDeleteTodo: (id) => {
-            dispatch(todoActions.deleteTodo(id));
+        onDeleteTodo: (id, selectedGroup) => {
+            dispatch(todoActions.deleteTodo(id, selectedGroup));
         }
     }
 }

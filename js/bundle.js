@@ -1875,11 +1875,12 @@ var groupActionNames = exports.groupActionNames = {
 };
 
 var groupActions = exports.groupActions = {
-    addGroup: function addGroup(data) {
+    addGroup: function addGroup(data, groupId) {
         return {
             type: groupActionNames.ADD_GROUP,
             payload: {
-                data: data
+                data: data,
+                groupId: groupId
             }
         };
     },
@@ -1928,27 +1929,30 @@ var todoActionNames = exports.todoActionNames = {
 };
 
 var todoActions = exports.todoActions = {
-    addTodo: function addTodo(data) {
+    addTodo: function addTodo(label, selectedGroup) {
         return {
             type: todoActionNames.ADD_TODO,
             payload: {
-                data: data
+                label: label,
+                selectedGroup: selectedGroup
             }
         };
     },
-    completeTodo: function completeTodo(id) {
+    completeTodo: function completeTodo(id, selectedGroup) {
         return {
             type: todoActionNames.COMPLETE_TODO,
             payload: {
-                id: id
+                id: id,
+                selectedGroup: selectedGroup
             }
         };
     },
-    deleteTodo: function deleteTodo(id) {
+    deleteTodo: function deleteTodo(id, selectedGroup) {
         return {
             type: todoActionNames.DELETE_TODO,
             payload: {
-                id: id
+                id: id,
+                selectedGroup: selectedGroup
             }
         };
     }
@@ -26273,14 +26277,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var mapStateToProps = function mapStateToProps(state) {
     return {
-        groupList: state.groupReducer.groupList
+        groupList: state.groupReducer.groupList,
+        groupCount: state.groupReducer.groupCount
     };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        onAddGroup: function onAddGroup(data) {
-            dispatch(_groupActions.groupActions.addGroup(data));
+        onAddGroup: function onAddGroup(data, groupId) {
+            dispatch(_groupActions.groupActions.addGroup(data, groupId));
         },
         onSelectGroup: function onSelectGroup(id) {
             dispatch(_groupActions.groupActions.selectGroup(id));
@@ -26364,7 +26369,8 @@ var SideArea = function (_React$Component) {
     }, {
         key: 'onSaveAddGroupDialog',
         value: function onSaveAddGroupDialog(groupName) {
-            this.props.onAddGroup(groupName);
+            var groupId = 'group-' + (this.props.groupCount + 1);
+            this.props.onAddGroup(groupName, groupId);
             this.setState({ showAddGroupDialog: false });
         }
     }, {
@@ -26749,20 +26755,21 @@ function getGroupName(groupList, selectedGroup) {
 var mapStateToProps = function mapStateToProps(state) {
     return {
         groupName: getGroupName(state.groupReducer.groupList, state.groupReducer.selectedGroup),
-        todoList: state.todoReducer.todoList[state.groupReducer.selectedGroup]
+        todoList: state.todoReducer.todoList[state.groupReducer.selectedGroup],
+        selectedGroup: state.groupReducer.selectedGroup
     };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     return {
-        onAddTodo: function onAddTodo(data) {
-            dispatch(_todoActions.todoActions.addTodo(data));
+        onAddTodo: function onAddTodo(label, selectedGroup) {
+            dispatch(_todoActions.todoActions.addTodo(label, selectedGroup));
         },
-        onCompleteTodo: function onCompleteTodo(id) {
-            dispatch(_todoActions.todoActions.completeTodo(id));
+        onCompleteTodo: function onCompleteTodo(id, selectedGroup) {
+            dispatch(_todoActions.todoActions.completeTodo(id, selectedGroup));
         },
-        onDeleteTodo: function onDeleteTodo(id) {
-            dispatch(_todoActions.todoActions.deleteTodo(id));
+        onDeleteTodo: function onDeleteTodo(id, selectedGroup) {
+            dispatch(_todoActions.todoActions.deleteTodo(id, selectedGroup));
         }
     };
 };
@@ -26824,23 +26831,22 @@ var MainArea = function (_React$Component) {
         key: 'onChangeTodoInput',
         value: function onChangeTodoInput(event) {
             this.setState({ todoInputValue: event.target.value });
-            // this.props.onChange(event.target.value);
         }
     }, {
         key: 'onClickAddButton',
         value: function onClickAddButton(event) {
             this.setState({ todoInputValue: '' });
-            this.props.onAddTodo(this.state.todoInputValue);
+            this.props.onAddTodo(this.state.todoInputValue, this.props.selectedGroup);
         }
     }, {
         key: 'onCompleteTodo',
         value: function onCompleteTodo(id) {
-            this.props.onCompleteTodo(id);
+            this.props.onCompleteTodo(id, this.props.selectedGroup);
         }
     }, {
         key: 'onDeleteTodo',
         value: function onDeleteTodo(id) {
-            this.props.onDeleteTodo(id);
+            this.props.onDeleteTodo(id, this.props.selectedGroup);
         }
     }, {
         key: 'renderTodoItems',
@@ -27175,18 +27181,62 @@ function todoReducer() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : todoInitState;
     var action = arguments[1];
 
-    var _state = _lodash2.default.cloneDeep(state);;
+    var _state = _lodash2.default.cloneDeep(state);
     var todoList = {};
+    switch (action.type) {
+        case _todoActions.todoActionNames.ADD_TODO:
+            _state.todoCount++;
+            todoList = _state.todoList[action.payload.selectedGroup];
+            var todoItem = {
+                id: 'item-' + _state.todoCount,
+                label: action.payload.label,
+                completed: false
+            };
+            todoList.push(todoItem);
+            return _state;
+
+        case _todoActions.todoActionNames.COMPLETE_TODO:
+            todoList = _state.todoList[action.payload.selectedGroup];
+            for (var i = 0; i < todoList.length; i++) {
+                if (todoList[i].id == action.payload.id) {
+                    todoList[i].completed = true;
+                    break;
+                }
+            }
+            return _state;
+
+        case _todoActions.todoActionNames.DELETE_TODO:
+            todoList = _state.todoList[action.payload.selectedGroup];
+            for (var _i = 0; _i < todoList.length; _i++) {
+                if (todoList[_i].id == action.payload.id) {
+                    todoList.splice(_i, 1);
+                    break;
+                }
+            }
+            return _state;
+
+        case _groupActions.groupActionNames.ADD_GROUP:
+            _state.todoList[action.payload.groupId] = [];
+            return _state;
+
+        default:
+            return state;
+    }
+}
+
+function groupReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : groupInitState;
+    var action = arguments[1];
+
+    var _state = _lodash2.default.cloneDeep(state);
     switch (action.type) {
         case _groupActions.groupActionNames.ADD_GROUP:
             _state.groupCount++;
-            var groupId = 'group-' + _state.groupCount;
             var groupItem = {
-                id: groupId,
+                id: action.payload.groupId,
                 label: action.payload.data
             };
             _state.groupList.push(groupItem);
-            _state.todoList[groupId] = [];
             return _state;
 
         case _groupActions.groupActionNames.SELECT_GROUP:
@@ -27203,58 +27253,15 @@ function todoReducer() {
             return _state;
 
         case _groupActions.groupActionNames.DELETE_GROUP:
-            for (var _i = 0; _i < _state.groupList.length; _i++) {
-                if (_state.groupList[_i].id == action.payload.id) {
-                    _state.groupList.splice(_i, 1);
+            for (var _i2 = 0; _i2 < _state.groupList.length; _i2++) {
+                if (_state.groupList[_i2].id == action.payload.id) {
+                    _state.groupList.splice(_i2, 1);
                     break;
                 }
             }
             delete _state.todoList[action.payload.id];
             if (_state.selectedGroup == action.payload.id) {
                 _state.selectedGroup = _state.groupList[0].id;
-            }
-            return _state;
-
-        default:
-            return state;
-    }
-}
-
-function groupReducer() {
-    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : groupInitState;
-    var action = arguments[1];
-
-    var _state = _lodash2.default.cloneDeep(state);;
-    var todoList = {};
-    switch (action.type) {
-        case _todoActions.todoActionNames.ADD_TODO:
-            _state.todoCount++;
-            todoList = _state.todoList[_state.selectedGroup];
-            var todoItem = {
-                id: 'item-' + _state.todoCount,
-                label: action.payload.data,
-                completed: false
-            };
-            todoList.push(todoItem);
-            return _state;
-
-        case _todoActions.todoActionNames.COMPLETE_TODO:
-            todoList = _state.todoList[_state.selectedGroup];
-            for (var i = 0; i < todoList.length; i++) {
-                if (todoList[i].id == action.payload.id) {
-                    todoList[i].completed = true;
-                    break;
-                }
-            }
-            return _state;
-
-        case _todoActions.todoActionNames.DELETE_TODO:
-            todoList = _state.todoList[_state.selectedGroup];
-            for (var _i2 = 0; _i2 < todoList.length; _i2++) {
-                if (todoList[_i2].id == action.payload.id) {
-                    todoList.splice(_i2, 1);
-                    break;
-                }
             }
             return _state;
 

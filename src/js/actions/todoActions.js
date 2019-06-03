@@ -5,27 +5,30 @@ export const todoActionNames = {
 }
 
 export const todoActions = {
-    addTodo: (data) => {
+    addTodo: (label, selectedGroup) => {
         return {
             type: todoActionNames.ADD_TODO,
             payload: {
-                data: data
+                label: label,
+                selectedGroup: selectedGroup
             }
         }
     },
-    completeTodo: (id) => {
+    completeTodo: (id, selectedGroup) => {
         return {
             type: todoActionNames.COMPLETE_TODO,
             payload: {
-                id: id
+                id: id,
+                selectedGroup: selectedGroup
             }
         }
     },
-    deleteTodo: (id) => {
+    deleteTodo: (id, selectedGroup) => {
         return {
             type: todoActionNames.DELETE_TODO,
             payload: {
-                id: id
+                id: id,
+                selectedGroup: selectedGroup
             }
         }
     }

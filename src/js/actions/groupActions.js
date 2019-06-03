@@ -6,11 +6,12 @@ export const groupActionNames = {
 }
 
 export const groupActions = {
-    addGroup: (data) => {
+    addGroup: (data, groupId) => {
         return {
             type: groupActionNames.ADD_GROUP,
             payload: {
-                data: data
+                data: data,
+                groupId: groupId
             }
         }
     },

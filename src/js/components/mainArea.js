@@ -14,20 +14,19 @@ export default class MainArea extends React.Component {
     }
     onChangeTodoInput(event) {
         this.setState({ todoInputValue: event.target.value });
-        // this.props.onChange(event.target.value);
     }
 
     onClickAddButton(event) {
         this.setState({ todoInputValue: '' })
-        this.props.onAddTodo(this.state.todoInputValue);
+        this.props.onAddTodo(this.state.todoInputValue, this.props.selectedGroup);
     }
 
     onCompleteTodo(id) {
-        this.props.onCompleteTodo(id);
+        this.props.onCompleteTodo(id, this.props.selectedGroup);
     }
 
     onDeleteTodo(id) {
-        this.props.onDeleteTodo(id);
+        this.props.onDeleteTodo(id, this.props.selectedGroup);
     }
 
     renderTodoItems() {
@@ -51,8 +50,8 @@ export default class MainArea extends React.Component {
         return (
             <div className='main-area'>
                 <Header
-                    groupName = {this.props.groupName}
-                    />
+                    groupName={this.props.groupName}
+                />
                 <main className='list-area'>
                     <div className='todo-input-area'>
                         <input type='text'
