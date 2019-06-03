@@ -1,9 +1,9 @@
 import { todoActionNames } from '../actions/todoActions';
 import { groupActionNames } from '../actions/groupActions';
+import { combineReducers } from 'redux';
 import _ from 'lodash';
 
-
-const initialState = {
+const groupInitState = {
     groupList: [
         {
             id: 'inbox',
@@ -14,6 +14,11 @@ const initialState = {
             label: 'グループ1'
         }
     ],
+    groupCount: 1,
+    selectedGroup: 'inbox'
+}
+
+const todoInitState = {
     todoList: {
         'inbox': [
             {
@@ -40,48 +45,14 @@ const initialState = {
             }
         ]
     },
-    todoCount: 4,
-    groupCount: 1,
-    selectedGroup: 'inbox'
+    todoCount: 4
 }
 
 
-
-const reducer = (state = initialState, action) => {
+function todoReducer(state = todoInitState, action) {
     let _state = _.cloneDeep(state);;
     let todoList = {};
     switch (action.type) {
-        case todoActionNames.ADD_TODO:
-            _state.todoCount++;
-            todoList = _state.todoList[_state.selectedGroup];
-            let todoItem = {
-                id: 'item-' + _state.todoCount,
-                label: action.payload.data,
-                completed: false
-            }
-            todoList.push(todoItem);
-            return _state;
-
-        case todoActionNames.COMPLETE_TODO:
-            todoList = _state.todoList[_state.selectedGroup];
-            for (let i = 0; i < todoList.length; i++) {
-                if (todoList[i].id == action.payload.id) {
-                    todoList[i].completed = true
-                    break;
-                }
-            }
-            return _state;
-
-        case todoActionNames.DELETE_TODO:
-            todoList = _state.todoList[_state.selectedGroup];
-            for (let i = 0; i < todoList.length; i++) {
-                if (todoList[i].id == action.payload.id) {
-                    todoList.splice(i, 1);
-                    break;
-                }
-            }
-            return _state;
-
         case groupActionNames.ADD_GROUP:
             _state.groupCount++;
             let groupId = 'group-' + _state.groupCount;
@@ -122,6 +93,51 @@ const reducer = (state = initialState, action) => {
         default:
             return state;
     }
-
 }
+
+function groupReducer(state = groupInitState, action) {
+    let _state = _.cloneDeep(state);;
+    let todoList = {};
+    switch (action.type) {
+        case todoActionNames.ADD_TODO:
+            _state.todoCount++;
+            todoList = _state.todoList[_state.selectedGroup];
+            let todoItem = {
+                id: 'item-' + _state.todoCount,
+                label: action.payload.data,
+                completed: false
+            }
+            todoList.push(todoItem);
+            return _state;
+
+        case todoActionNames.COMPLETE_TODO:
+            todoList = _state.todoList[_state.selectedGroup];
+            for (let i = 0; i < todoList.length; i++) {
+                if (todoList[i].id == action.payload.id) {
+                    todoList[i].completed = true
+                    break;
+                }
+            }
+            return _state;
+
+        case todoActionNames.DELETE_TODO:
+            todoList = _state.todoList[_state.selectedGroup];
+            for (let i = 0; i < todoList.length; i++) {
+                if (todoList[i].id == action.payload.id) {
+                    todoList.splice(i, 1);
+                    break;
+                }
+            }
+            return _state;
+
+        default:
+            return state;
+    }
+}
+
+const reducer = combineReducers({
+    todoReducer,
+    groupReducer
+})
+
 export default reducer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import SideArea from '../containers/sideArea';
 import MainArea from '../containers/mainArea';
 

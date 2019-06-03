@@ -5,7 +5,7 @@ import SideArea from '../components/sideArea';
 
 const mapStateToProps = (state) => {
     return {
-        groupList: state.groupList
+        groupList: state.groupReducer.groupList
     }
 }
 

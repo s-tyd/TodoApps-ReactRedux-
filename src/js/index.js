@@ -6,12 +6,14 @@ import ConfigureStore from './store/';
 
 const store = ConfigureStore();
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
-    document.getElementById('root')
-);
+const render = () => {
+    ReactDOM.render(
+        <Provider store={store}>
+            <App />
+        </Provider>,
+        document.getElementById('root')
+    );
+}
 
 render();
 store.subscribe(render);
